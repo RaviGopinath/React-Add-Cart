@@ -41,6 +41,30 @@ if(found){
   this.setState({ cartItems : [...this.state.cartItems]});
 }
     }
+    plus =(data) =>{
+      data.Quantity = data.Quantity+1
+      this.setState({cartItems : [...this.state.cartItems]})
+    }
+    minus = (data) =>{
+      if(data.Quantity > 1){
+        data.Quantity = data.Quantity-1
+        this.setState({cartItems : [...this.state.cartItems]})
+      }
+      else{
+        console.log(data)
+         let value = this.state.cartItems;
+         let found = value.includes(data)
+         console.log(found)
+
+         if(found){
+         let index = value.indexOf(data)
+         console.log(index)
+         value.splice(index ,1)
+         data.Quantity=0
+         this.setState({ cartItems : [...this.state.cartItems]});
+      }
+    }
+  }
   render() {
     return (
       <div>
@@ -52,7 +76,7 @@ if(found){
         </div>
         <div className='carts'>
         {this.state.cartItems.map((prod, index) =>(
-            <Cart key={index} prod ={prod}  removed={this.removed}/> 
+            <Cart key={index} prod ={prod}  removed={this.removed} plus={this.plus} minus={this.minus}/> 
         ))}
         </div>
       </div>
